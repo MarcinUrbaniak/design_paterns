@@ -14,7 +14,7 @@ public class Pizza {
         this.dough = dough;
         this.sauce = sauce;
         this.size = size;
-        this.toppings = List.copyOf(toppings);
+        this.toppings = toppings;
     }
 
     public Dough getDough() {
