@@ -19,23 +19,28 @@ public class SkinnyHenrySystem {
     }
 
     private void addPizza() {
+        PizzaBuilder builder = new PizzaBuilder();
+
         try(Scanner in = new Scanner(System.in)) {
             System.out.println("Give me a pizza name");
-            String pizzaName = in.nextLine();
+            builder.withName(in.nextLine());
 
             System.out.println("Which dough do you want? (ITALIAN, POLISH, PLUMB)");
-            Dough dough = Dough.valueOf(in.nextLine());
+            String doughValue = in.nextLine();
+            builder.withDough(doughValue);
 
             System.out.println("Which sauce do you want? (TOMATO, CHEESE, TOMATO-CHEESE)");
-            Sauce sauce = Sauce.valueOf(in.nextLine());
+            String sauceValue = in.nextLine();
+            builder.withSauce(sauceValue);
 
             System.out.println("Give me the size of pizza (SMALL, MEDIUM, LARGE, EXTRA_LARGE)");
-            Size size = Size.valueOf(in.nextLine());
+            String sizeValue = in.nextLine();
+            builder.withSize(sizeValue);
 
-            List<Topping> toppings = new ArrayList<>();
+
             while (true) {
                 System.out.println("Which topping do you want?");
-                toppings.add(Topping.valueOf(in.nextLine()));
+                builder.addTopping(Topping.valueOf(in.nextLine()));
 
                 System.out.println("More toppings? (YES/NO)");
                 String nextTopping = in.nextLine();
@@ -45,8 +50,15 @@ public class SkinnyHenrySystem {
                 }
             }
 
-            Pizza pizza = new Pizza(pizzaName, dough, sauce, size, toppings);
+            Pizza pizza = builder.build();
+
+            PizzaBuilder pizzaBuilder2 = new PizzaBuilder();
+            Pizza pizza1 = pizzaBuilder2.addTopping(Topping.BACON).addTopping(Topping.ANANAS).build();
+            System.out.println("pizza1 = " + pizza1);
+
             System.out.println(pizza);
         }
     }
+
+
 }
